@@ -15,11 +15,20 @@ public class Main {
         do {
             optimusUI.optimusUI_welcome_message_header();
             optimusUI.optimusUI_welcome_message_project_options();
-            if(optimus_scanner.nextLine().equals("1")) {
+            var selection = optimus_scanner.nextLine();
+            if(selection.equalsIgnoreCase("1")) {
                 Software_Project_Data new_software_project = optimusUI.optimusUI_create_new_project();
-            } else {
+            }
+            else if (selection.equalsIgnoreCase("2")) {
+                System.out.println("To Do");
+            }
+            else if (selection.equalsIgnoreCase("3")) {
                 appIsOpen = false;
+                System.out.println("Goodbye!");
                 break;
+            }
+            else {
+                System.out.println("Invalid Input. Try again please.");
             }
 
         } while (appIsOpen);
