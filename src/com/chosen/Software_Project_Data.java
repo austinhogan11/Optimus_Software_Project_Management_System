@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Software_Project_Data {
-    String project_name;
-    String project_description;
-    ArrayList<software_project_member> project_members;
+    private String project_name;
+    private String project_description;
+    private ArrayList<software_project_member> project_members;
 
     public Software_Project_Data() {
     }
@@ -42,8 +42,14 @@ public class Software_Project_Data {
         this.project_description = project_description;
     }
 
-    public ArrayList<software_project_member> getProject_members() {
-        return project_members;
+    public void getProject_members() {
+        for (software_project_member member: project_members) {
+            if(member.isManager){
+                System.out.println(member.getFirst_name() + " " + member.getLast_name() + "(Manager)");
+            } else {
+                System.out.println(member.getFirst_name() + " " + member.getLast_name());
+            }
+        }
     }
 
     public void setProject_members(ArrayList<software_project_member> project_members) {

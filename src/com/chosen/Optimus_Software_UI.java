@@ -27,7 +27,22 @@ public class Optimus_Software_UI {
         System.out.println("~   Please enter the specified key for an option below: ~");
         System.out.println("~   1. Create a new Software Project                    ~");
         System.out.println("~   2. Open an Existing Project.                        ~");
-        System.out.println("~   3. Exit Application                                 ~");
+        System.out.println("~   e. Exit Application                                 ~");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
+
+    /*
+       Menu options for project user is currently in.
+     */
+    public void optimus_UI_in_project_menu_options(){
+        System.out.println("~   Please enter the specified key for an option below: ~");
+        System.out.println("~   1. View Software Project Information                ~");
+        System.out.println("~   2. Enter or Edit Software Project Information       ~");
+        System.out.println("~   3. View Software Project Requirements               ~");
+        System.out.println("~   4. Enter Edit Software Project Requirements         ~");
+        System.out.println("~   5. View Software Project Monitoring Data            ~");
+        System.out.println("~   6. Enter or Edit Software Project Monitoring Data   ~");
+        System.out.println("~   e. Back to Main Menu                                ~");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
@@ -46,9 +61,9 @@ public class Optimus_Software_UI {
     /*
     The three functions below obtain user input to create a new software project.
     Project Data Collected:
-        -   Project Name
-        -   Project Description
-        -   Project Team Members
+        -   Project Name - String
+        -   Project Description - String
+        -   Project Team Members - ArrayList<software_project_member>
     */
     private String new_project_name_input(){
         System.out.println("~   Enter the Software Project's Name:                  ~");
@@ -63,9 +78,12 @@ public class Optimus_Software_UI {
     private ArrayList<software_project_member> new_project_members_input(){
         ArrayList<software_project_member> new_project_members = new ArrayList<>();
         System.out.println("Do you want to add a team member to the project? (y/n)");
-        if (user_input.nextLine().toLowerCase().equals("y")){
+        String add_member = user_input.nextLine().toLowerCase();
+        while (add_member.equals("y")){
             software_project_member project_member = optimusUI_create_new_project_member();
             new_project_members.add(project_member);
+            System.out.println("Add another team member to the project? (y/n)");
+            add_member = user_input.nextLine().toLowerCase();
         }
         return new_project_members;
     }
@@ -84,9 +102,9 @@ public class Optimus_Software_UI {
     /*
     The three functions below obtain user input to create a project member.
     Project Member Data Collected:
-        -   Team Member First Name
-        -   Team Member Last Name
-        -   If the member is a project manager
+        -   Team Member First Name - String
+        -   Team Member Last Name - String
+        -   If the member is a project manager - Boolean
      */
     private String new_member_first_name_input() {
         System.out.println("~   Enter the project member's first name:                  ~");
@@ -101,6 +119,14 @@ public class Optimus_Software_UI {
     private boolean new_member_manager_input() {
         System.out.println("~   Is this project member a project manager? (y/n)                  ~");
         return user_input.nextLine().toLowerCase().equals("y");
+    }
+
+
+    public void view_project_information(Software_Project_Data project) {
+        System.out.println("Project Name: " + project.getProject_name() + "\n"
+                            + "Project Description: " + project.getProject_description() + "\n"
+                            + "Project Members: ");
+        project.getProject_members();
     }
 
 

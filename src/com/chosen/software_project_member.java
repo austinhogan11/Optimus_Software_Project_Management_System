@@ -11,6 +11,17 @@ public class software_project_member {
         this.isManager = isManager;
     }
 
+
+
+
+
+
+
+
+
+    /*
+    Getters & Setters
+     */
     public String getFirst_name() {
         return first_name;
     }
