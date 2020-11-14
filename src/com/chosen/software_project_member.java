@@ -11,6 +11,14 @@ public class software_project_member {
         this.isManager = isManager;
     }
 
+    public void display_member_data(){
+        if(this.isManager) {
+            System.out.println(this.first_name + " " + this.last_name + " (Manager)");
+        } else {
+            System.out.println(this.first_name + " " + this.last_name);
+        }
+    }
+
 
 
 

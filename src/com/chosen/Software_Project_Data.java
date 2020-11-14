@@ -43,11 +43,12 @@ public class Software_Project_Data {
     }
 
     public void getProject_members() {
-        for (software_project_member member: project_members) {
-            if(member.isManager){
-                System.out.println(member.getFirst_name() + " " + member.getLast_name() + "(Manager)");
-            } else {
-                System.out.println(member.getFirst_name() + " " + member.getLast_name());
+        int count = 1;
+        if (project_members.size() > 0) {
+            for (software_project_member member : project_members) {
+                System.out.print("  " + count + ". ");
+                member.display_member_data();
+                count++;
             }
         }
     }
