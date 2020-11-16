@@ -46,7 +46,7 @@ public class Optimus_Software_UI {
     public void optimusUI_project_information_options(){
         System.out.println("~   Please enter the specified key for an option below: ~");
         System.out.println("~   1. View Software Project Information                ~");
-        System.out.println("~   2. Edit Software Project Information        ~");
+        System.out.println("~   2. Edit Software Project Information                ~");
         System.out.println("~   e. Back                                             ~");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
@@ -65,6 +65,15 @@ public class Optimus_Software_UI {
         System.out.println("~   1. Add a Project Team Member                        ~");
         System.out.println("~   2. Remove a Project Team Member                     ~");
         System.out.println("~   3. Edit a Project Team Member                       ~");
+        System.out.println("~   e. Back                                             ~");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
+
+    public void optimusUI_edit_project_member(){
+        System.out.println("~   Please enter the specified key for an option below: ~");
+        System.out.println("~   1. Change first name                                ~");
+        System.out.println("~   2. Change last name                                 ~");
+        System.out.println("~   3. Change manager status                            ~");
         System.out.println("~   e. Back                                             ~");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
@@ -328,6 +337,8 @@ public class Optimus_Software_UI {
                     break;
                 case "3":
                     System.out.println("edit a member");
+                    edit_project_members_selection(project);
+                    inMemberOptions = false;
                     break;
                 case "e":
                     System.out.println("Back.");
@@ -337,6 +348,72 @@ public class Optimus_Software_UI {
             }
         } while (inMemberOptions);
 
+    }
+
+    public  void edit_project_member_Options(Software_Project_Data project, String member){
+        boolean inMemberOptions = true;
+        do {
+            optimusUI_edit_project_member();
+            String selection = user_input.nextLine().toLowerCase();
+            switch (selection){
+                case "1":
+                    System.out.println("Change first name");
+                    edit_member_first_name(project.getProject_member_at_id(Integer.parseInt(member) - 1));
+                    break;
+                case "2":
+                    System.out.println("Change last name");
+                    edit_member_last_name(project.getProject_member_at_id(Integer.parseInt(member) - 1));
+                    break;
+                case "3":
+                    System.out.println("change manager status");
+                    edit_member_manager_status(project.getProject_member_at_id(Integer.parseInt(member) - 1));
+                    break;
+                case "e":
+                    System.out.println("Back.");
+                    inMemberOptions = false;
+                    break;
+                default:
+                    System.out.println("Invalid Input. Try again please.");
+            }
+        } while (inMemberOptions);
+
+    }
+
+    public void edit_project_members_selection(Software_Project_Data project)
+    {
+        boolean inMemberSelection = true;
+        do {
+            optimusUI_choose_project_memberUI(project);
+            String selection = user_input.nextLine().toLowerCase();
+
+            if (SelectionIsValid(selection, project))
+            {
+                System.out.println(selection);
+                edit_project_member_Options(project, selection);
+                break;
+            }
+            else if (selection.equals("e"))
+            {
+                System.out.println("Back.");
+                inMemberSelection = false;
+                break;
+            }
+            else
+            {
+                System.out.println("Invalid Input. Try again please.");
+            }
+        } while (inMemberSelection);
+    }
+
+    //Helper method for checking that a selection is valid
+    public boolean SelectionIsValid(String selection, Software_Project_Data project)
+    {
+        int select = Integer.parseInt(selection);
+        if (select > 0 && select <= project.getProject_members().size())
+        {
+            return true;
+        }
+        return false;
     }
 
     /*
@@ -358,7 +435,7 @@ public class Optimus_Software_UI {
     public void edit_member_last_name(software_project_member member){
         System.out.println("Enter the new last name: ");
         String new_last_name = user_input.nextLine();
-        member.setFirst_name(new_last_name);
+        member.setLast_name(new_last_name);
         System.out.println("Member's last name updated.");
     }
 
