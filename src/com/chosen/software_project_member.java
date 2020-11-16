@@ -11,6 +11,10 @@ public class software_project_member {
         this.isManager = isManager;
     }
 
+    /*
+        Displays information for a specific project member.
+        If the member is a manager that is also displayed.
+     */
     public void display_member_data(){
         if(this.isManager) {
             System.out.println(this.first_name + " " + this.last_name + " (Manager)");
@@ -20,15 +24,8 @@ public class software_project_member {
     }
 
 
-
-
-
-
-
-
-
     /*
-    Getters & Setters
+        Project Member Getters & Setters
      */
     public String getFirst_name() {
         return first_name;

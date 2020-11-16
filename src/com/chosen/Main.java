@@ -13,6 +13,7 @@ public class Main {
 
         Optimus_Software_UI optimusUI = new Optimus_Software_UI();
 
+        //Main Menu Processing will most likely get refactored after functionality is implemented.
         do {
             optimusUI.welcome_page_UI(optimusUI);
             String selection = optimus_scanner.nextLine();

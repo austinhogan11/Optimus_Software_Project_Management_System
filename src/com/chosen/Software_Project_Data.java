@@ -18,14 +18,13 @@ public class Software_Project_Data {
         this.project_members = project_members;
     }
 
-    public void write_project_data(String file_name) throws IOException {
-        FileWriter project_data = new FileWriter(file_name + ".txt");
-        project_data.write(this.project_name + ","
-            + this.project_description + ","
-            + this.project_members);
 
-    }
 
+
+
+    /*
+        Software Project Getters & Setters
+     */
     public String getProject_name() {
         return project_name;
     }
@@ -42,7 +41,7 @@ public class Software_Project_Data {
         this.project_description = project_description;
     }
 
-    public void getProject_members() {
+    public void display_project_members() {
         int count = 1;
         if (project_members.size() > 0) {
             for (software_project_member member : project_members) {

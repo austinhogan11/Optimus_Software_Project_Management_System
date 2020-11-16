@@ -71,7 +71,7 @@ public class Optimus_Software_UI {
 
     public void optimusUI_choose_project_memberUI(Software_Project_Data project){
         System.out.println("~   Please enter the specified key for an option below: ~");
-        project.getProject_members();
+        project.display_project_members();
     }
 
     public void optimusUI_project_requirements_options(){
@@ -144,17 +144,6 @@ public class Optimus_Software_UI {
     }
 
     /*
-    This function takes user input for the members and creates a member object with it.
-     */
-    public software_project_member optimusUI_create_new_project_member() {
-        String first_name = new_member_first_name_input();
-        String last_name = new_member_last_name_input();
-        boolean isManager = new_member_manager_input();
-        return new software_project_member(first_name, last_name, isManager);
-    }
-
-
-    /*
     The three functions below obtain user input to create a project member.
     Project Member Data Collected:
         -   Team Member First Name - String
@@ -176,12 +165,27 @@ public class Optimus_Software_UI {
         return user_input.nextLine().toLowerCase().equals("y");
     }
 
+    /*
+    This function takes user input for the members and creates a member object with it.
+     */
+    public software_project_member optimusUI_create_new_project_member() {
+        String first_name = new_member_first_name_input();
+        String last_name = new_member_last_name_input();
+        boolean isManager = new_member_manager_input();
+        return new software_project_member(first_name, last_name, isManager);
+    }
+
+
+
+
+
+
 
     public void view_project_information(Software_Project_Data project) {
         System.out.println("Project Name: " + project.getProject_name() + "\n"
                             + "Project Description: " + project.getProject_description() + "\n"
                             + "Project Members: ");
-        project.getProject_members();
+        project.display_project_members();
     }
 
     public void welcome_page_UI(Optimus_Software_UI systemUI){
@@ -189,6 +193,13 @@ public class Optimus_Software_UI {
         systemUI.optimusUI_welcome_message_project_options();
     }
 
+    /*
+        Process Handling for the current software project
+        1 - Starts the processes for the Software Project's Project Information
+        2 - Starts the processes for the Software Project's Project Requirements
+        3 - Starts the processes for the Software Project's Project Monitoring
+        e - Takes the user back to the previous menu
+     */
     public void current_project_handling(Optimus_Software_UI system_UI, Software_Project_Data current_project) {
         boolean atProjectMenu = true;
         do {
@@ -214,6 +225,12 @@ public class Optimus_Software_UI {
         } while (atProjectMenu);
     }
 
+    /*
+        Process Handling when viewing the current project's information
+        1 - Displays the current project information data
+        2 - Starts the process for editing project information data
+        e - Takes the user back to the previous menu
+     */
     public void project_information_handling(Optimus_Software_UI systemUI, Software_Project_Data project) {
         boolean inProjectInfo = true;
         do {
@@ -237,9 +254,11 @@ public class Optimus_Software_UI {
     }
 
     /*
-        Handles the project modifications for the current Software Project
-        Displays the menu options to edit the current project. (Edit Name, Description, Team Members
-        Accepts user input and proceeds on to the project attribute to modify or goes back to the previous screen.
+        Handles the processing for project modifications
+        1 - Starts the process to edit the project name
+        2 - Starts the process to edit the project description
+        3 - Starts the process to edit the project members
+        e - Takes the user back to the previous menu
      */
     public void edit_project_information_processing(Optimus_Software_UI systemUI, Software_Project_Data project) {
         boolean inEditProjectMenu = true;
@@ -265,6 +284,12 @@ public class Optimus_Software_UI {
         } while (inEditProjectMenu);
     }
 
+    /*
+        These methods edit a Software Projects Basic Information
+        - Project Name
+        - Project Description
+        - Project Members
+    */
 
     // Changes the name of the software project
     public void edit_project_name(Software_Project_Data project) {
@@ -282,6 +307,13 @@ public class Optimus_Software_UI {
         System.out.println("Project Name Updated.");
     }
 
+    /*
+        Handles the functionality to edit project members on a project.
+        1 - Lets the user add a member to the project
+        2 - Lets the user remove a member from project
+        3 - Lets the user edit a chosen project members information.
+        e - Takes the user back to the previous menu
+     */
     public  void edit_project_members_processing(Software_Project_Data project){
         boolean inMemberOptions = true;
         do {
@@ -307,6 +339,14 @@ public class Optimus_Software_UI {
 
     }
 
+    /*
+        These methods edit a project members Basic Information
+        - First Name
+        - Last Name
+        - Manager Status
+    */
+
+    // Receives user input and changes the selected project members first name
     public void edit_member_first_name(software_project_member member){
         System.out.println("Enter the new first name: ");
         String new_first_name = user_input.nextLine();
@@ -314,6 +354,7 @@ public class Optimus_Software_UI {
         System.out.println("Member's first name updated.");
     }
 
+    // Receives user input and changes the selected project members last name
     public void edit_member_last_name(software_project_member member){
         System.out.println("Enter the new last name: ");
         String new_last_name = user_input.nextLine();
@@ -321,6 +362,7 @@ public class Optimus_Software_UI {
         System.out.println("Member's last name updated.");
     }
 
+    // Receives user input and changes the selected project members member status
     public void edit_member_manager_status(software_project_member member){
         System.out.println("Is the member a manager? (y/n) ");
         String isManager = user_input.nextLine().toLowerCase();
