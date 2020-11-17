@@ -88,4 +88,11 @@ public class Software_Project_Data {
     public void setProject_members(ArrayList<software_project_member> project_members) {
         this.project_members = project_members;
     }
+
+    public ArrayList<software_project_member> getProject_members(){
+        return project_members;
+    }
+    public software_project_member getProject_member_at_id(int id){
+        return project_members.get(id);
+    }
 }
