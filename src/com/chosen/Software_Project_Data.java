@@ -1,13 +1,12 @@
 package com.chosen;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Software_Project_Data {
     private String project_name;
     private String project_description;
-    private ArrayList<software_project_member> project_members;
+    public ArrayList<software_project_member> project_members;
 
     public Software_Project_Data() {
     }
@@ -17,6 +16,20 @@ public class Software_Project_Data {
         this.project_description = project_description;
         this.project_members = project_members;
     }
+
+    public void add_member(software_project_member new_member){
+        project_members.add(new_member);
+
+    }
+
+    public void remove_member(int index) {
+        software_project_member removed = project_members.get(index);
+        System.out.print("Removed ");
+        removed.display_member_data();
+        project_members.remove(index);
+    }
+
+
 
 
 
@@ -41,6 +54,10 @@ public class Software_Project_Data {
         this.project_description = project_description;
     }
 
+    public int get_members_list_size(){
+       return project_members.size();
+    }
+
     public void display_project_members() {
         int count = 1;
         if (project_members.size() > 0) {
@@ -50,6 +67,22 @@ public class Software_Project_Data {
                 count++;
             }
         }
+    }
+
+    //Needs Error handling
+    public int get_member_index(Scanner input) {
+        System.out.println("Enter the specified number to select a member: ");
+        display_project_members();
+        String num = input.nextLine();
+        return Integer.parseInt(num) - 1;
+    }
+
+    public software_project_member get_member(int index) {
+        return project_members.get(index);
+    }
+
+    public boolean valid_index(int index) {
+        return index > 0 && index <= (project_members.size() - 1);
     }
 
     public void setProject_members(ArrayList<software_project_member> project_members) {

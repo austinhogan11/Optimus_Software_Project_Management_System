@@ -46,7 +46,7 @@ public class Optimus_Software_UI {
     public void optimusUI_project_information_options(){
         System.out.println("~   Please enter the specified key for an option below: ~");
         System.out.println("~   1. View Software Project Information                ~");
-        System.out.println("~   2. Edit Software Project Information        ~");
+        System.out.println("~   2. Edit Software Project Information                ~");
         System.out.println("~   e. Back                                             ~");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
@@ -60,11 +60,20 @@ public class Optimus_Software_UI {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
-    public void optimusUI_edit_project_member_options(){
+    public void optimusUI_edit_project_members_options(){
         System.out.println("~   Please enter the specified key for an option below: ~");
         System.out.println("~   1. Add a Project Team Member                        ~");
         System.out.println("~   2. Remove a Project Team Member                     ~");
         System.out.println("~   3. Edit a Project Team Member                       ~");
+        System.out.println("~   e. Back                                             ~");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
+
+    public void optimusUI_edit_project_member_options(){
+        System.out.println("~   Please enter the specified key for an option below: ~");
+        System.out.println("~   1. Edit The Member's First Name                     ~");
+        System.out.println("~   2. Edit The Member's Last Name                      ~");
+        System.out.println("~   3. Edit The Member's Manager Status                 ~");
         System.out.println("~   e. Back                                             ~");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
@@ -174,11 +183,6 @@ public class Optimus_Software_UI {
         boolean isManager = new_member_manager_input();
         return new software_project_member(first_name, last_name, isManager);
     }
-
-
-
-
-
 
 
     public void view_project_information(Software_Project_Data project) {
@@ -314,22 +318,23 @@ public class Optimus_Software_UI {
         3 - Lets the user edit a chosen project members information.
         e - Takes the user back to the previous menu
      */
-    public  void edit_project_members_processing(Software_Project_Data project){
+    public void edit_project_members_processing(Software_Project_Data project){
         boolean inMemberOptions = true;
         do {
-            optimusUI_edit_project_member_options();
+            optimusUI_edit_project_members_options();
             String selection = user_input.nextLine().toLowerCase();
             switch (selection){
                 case "1":
-                    System.out.println("Add a member");
+                    add_project_member(project);
                     break;
                 case "2":
-                    System.out.println("remove a member");
+                    remove_project_member(project);
                     break;
                 case "3":
-                    System.out.println("edit a member");
+                    edit_project_member(project);
                     break;
                 case "e":
+                    inMemberOptions = false;
                     System.out.println("Back.");
                     break;
                 default:
@@ -338,6 +343,49 @@ public class Optimus_Software_UI {
         } while (inMemberOptions);
 
     }
+
+    private void add_project_member(Software_Project_Data project) {
+        project.add_member(optimusUI_create_new_project_member());
+    }
+
+    private void remove_project_member(Software_Project_Data project) {
+        if(project.get_members_list_size() == 0) {
+            System.out.println("The project currently has no members to remove.");
+        } else {
+            project.remove_member(project.get_member_index(user_input));
+        }
+    }
+
+    private void edit_project_member(Software_Project_Data project) {
+        boolean editingMember = true;
+        if(project.get_members_list_size() == 0) {
+            System.out.println("The project currently has no members to remove.");
+        } else {
+            int member_index = project.get_member_index(user_input);
+            do {
+                optimusUI_edit_project_member_options();
+                String selection = user_input.nextLine().toLowerCase();
+                switch (selection){
+                    case "1":
+                        edit_member_first_name(project.project_members.get(member_index));
+                        break;
+                    case "2":
+                        edit_member_last_name(project.project_members.get(member_index));
+                        break;
+                    case "3":
+                        edit_member_manager_status(project.project_members.get(member_index));
+                        break;
+                    case "e":
+                        editingMember = false;
+                        System.out.println("Back.");
+                        break;
+                    default:
+                        System.out.println("Invalid Input. Try again please.");
+                }
+            } while (!editingMember);
+        }
+    }
+
 
     /*
         These methods edit a project members Basic Information
@@ -358,7 +406,7 @@ public class Optimus_Software_UI {
     public void edit_member_last_name(software_project_member member){
         System.out.println("Enter the new last name: ");
         String new_last_name = user_input.nextLine();
-        member.setFirst_name(new_last_name);
+        member.setLast_name(new_last_name);
         System.out.println("Member's last name updated.");
     }
 
@@ -367,9 +415,9 @@ public class Optimus_Software_UI {
         System.out.println("Is the member a manager? (y/n) ");
         String isManager = user_input.nextLine().toLowerCase();
         if(isManager.equals("y")) {
-            member.isManager = true;
+            member.setManager(true);
         } else {
-            member.isManager = false;
+            member.setManager(false);
         }
         System.out.println("Member's project manager status was updated.");
     }
