@@ -1,11 +1,11 @@
 package com.chosen;
 
-public class software_project_member {
-    String first_name;
-    String last_name;
-    boolean isManager;
+public class Software_project_member {
+    private String first_name;
+    private String last_name;
+    private boolean isManager;
 
-    public software_project_member(String first_name, String last_name, boolean isManager) {
+    public Software_project_member(String first_name, String last_name, boolean isManager) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.isManager = isManager;
@@ -22,7 +22,6 @@ public class software_project_member {
             System.out.println(this.first_name + " " + this.last_name);
         }
     }
-
 
     /*
         Project Member Getters & Setters

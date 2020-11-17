@@ -1,5 +1,6 @@
 package com.chosen;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,9 +11,11 @@ public class Optimus_Software_UI {
     }
 
     /*
-        Welcome Message Displayed at applications home screen.
+        ================================== Main Menu UI & Functionality ==============================
      */
-    public void optimusUI_welcome_message_header() {
+
+    // Welcome Message Displayed at applications home screen.
+    public void optimusUI_welcome_message() {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println("~                   Welcome To The                      ~");
         System.out.println("~       Optimus Software Project Management System      ~");
@@ -20,7 +23,7 @@ public class Optimus_Software_UI {
     }
 
     /*
-        Project Menu options displayed on the applications home screen.
+        Project Menu options displayed on the applications main menu/home screen.
         The numbers represent what key to enter to select an option.
      */
     public void optimusUI_welcome_message_project_options() {
@@ -31,9 +34,21 @@ public class Optimus_Software_UI {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
+    public void optimusUI_main_menu(Optimus_Software_UI systemUI){
+        systemUI.optimusUI_welcome_message();
+        systemUI.optimusUI_welcome_message_project_options();
+    }
+
     /*
-       Menu options for project user is currently in.
+        =============================================================================================
      */
+
+
+    /*
+    ================================== "In-Project" Menu UI & Functionality ==============================
+    */
+
+    // Menu options for project user is currently in.
     public void optimusUI_in_project_menu_options(){
         System.out.println("~   Please enter the specified key for an option below: ~");
         System.out.println("~   1. Software Project Information                     ~");
@@ -109,7 +124,6 @@ public class Optimus_Software_UI {
 
 
 
-
     /*
     This function takes user input for project data and creates a new project from it.
     */
@@ -117,7 +131,7 @@ public class Optimus_Software_UI {
         System.out.println("~                 Create a New Project                  ~");
         String project_name = new_project_name_input();
         String project_desc = new_project_description_input();
-        ArrayList<software_project_member> project_members = new_project_members_input();
+        ArrayList<Software_project_member> project_members = new_project_members_input();
 
         return new Software_Project_Data(project_name, project_desc, project_members);
     }
@@ -139,12 +153,12 @@ public class Optimus_Software_UI {
         return user_input.nextLine();
     }
 
-    private ArrayList<software_project_member> new_project_members_input(){
-        ArrayList<software_project_member> new_project_members = new ArrayList<>();
+    private ArrayList<Software_project_member> new_project_members_input(){
+        ArrayList<Software_project_member> new_project_members = new ArrayList<>();
         System.out.println("Do you want to add a team member to the project? (y/n)");
         String add_member = user_input.nextLine().toLowerCase();
         while (add_member.equals("y")){
-            software_project_member project_member = optimusUI_create_new_project_member();
+            Software_project_member project_member = optimusUI_create_new_project_member();
             new_project_members.add(project_member);
             System.out.println("Add another team member to the project? (y/n)");
             add_member = user_input.nextLine().toLowerCase();
@@ -177,11 +191,11 @@ public class Optimus_Software_UI {
     /*
     This function takes user input for the members and creates a member object with it.
      */
-    public software_project_member optimusUI_create_new_project_member() {
+    public Software_project_member optimusUI_create_new_project_member() {
         String first_name = new_member_first_name_input();
         String last_name = new_member_last_name_input();
         boolean isManager = new_member_manager_input();
-        return new software_project_member(first_name, last_name, isManager);
+        return new Software_project_member(first_name, last_name, isManager);
     }
 
 
@@ -190,11 +204,6 @@ public class Optimus_Software_UI {
                             + "Project Description: " + project.getProject_description() + "\n"
                             + "Project Members: ");
         project.display_project_members();
-    }
-
-    public void welcome_page_UI(Optimus_Software_UI systemUI){
-        systemUI.optimusUI_welcome_message_header();
-        systemUI.optimusUI_welcome_message_project_options();
     }
 
     /*
@@ -345,14 +354,14 @@ public class Optimus_Software_UI {
     }
 
     private void add_project_member(Software_Project_Data project) {
-        project.add_member(optimusUI_create_new_project_member());
+        project.add_project_member(optimusUI_create_new_project_member());
     }
 
     private void remove_project_member(Software_Project_Data project) {
         if(project.get_members_list_size() == 0) {
             System.out.println("The project currently has no members to remove.");
         } else {
-            project.remove_member(project.get_member_index(user_input));
+            project.remove_project_member(project.find_member_index(user_input));
         }
     }
 
@@ -361,7 +370,7 @@ public class Optimus_Software_UI {
         if(project.get_members_list_size() == 0) {
             System.out.println("The project currently has no members to remove.");
         } else {
-            int member_index = project.get_member_index(user_input);
+            int member_index = project.find_member_index(user_input);
             do {
                 optimusUI_edit_project_member_options();
                 String selection = user_input.nextLine().toLowerCase();
@@ -395,7 +404,7 @@ public class Optimus_Software_UI {
     */
 
     // Receives user input and changes the selected project members first name
-    public void edit_member_first_name(software_project_member member){
+    public void edit_member_first_name(Software_project_member member){
         System.out.println("Enter the new first name: ");
         String new_first_name = user_input.nextLine();
         member.setFirst_name(new_first_name);
@@ -403,7 +412,7 @@ public class Optimus_Software_UI {
     }
 
     // Receives user input and changes the selected project members last name
-    public void edit_member_last_name(software_project_member member){
+    public void edit_member_last_name(Software_project_member member){
         System.out.println("Enter the new last name: ");
         String new_last_name = user_input.nextLine();
         member.setLast_name(new_last_name);
@@ -411,7 +420,7 @@ public class Optimus_Software_UI {
     }
 
     // Receives user input and changes the selected project members member status
-    public void edit_member_manager_status(software_project_member member){
+    public void edit_member_manager_status(Software_project_member member){
         System.out.println("Is the member a manager? (y/n) ");
         String isManager = user_input.nextLine().toLowerCase();
         if(isManager.equals("y")) {

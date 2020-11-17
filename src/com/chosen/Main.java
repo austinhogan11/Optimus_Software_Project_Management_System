@@ -9,13 +9,13 @@ public class Main {
         boolean appIsOpen = true;
         boolean atMainMenu = true;
 
-        ArrayList<software_project_member> current_members = new ArrayList<>();
+        ArrayList<Software_project_member> current_members = new ArrayList<>();
 
         Optimus_Software_UI optimusUI = new Optimus_Software_UI();
 
         //Main Menu Processing will most likely get refactored after functionality is implemented.
         do {
-            optimusUI.welcome_page_UI(optimusUI);
+            optimusUI.optimusUI_main_menu(optimusUI);
             String selection = optimus_scanner.nextLine();
             switch(selection) {
                 case "1":
