@@ -8,9 +8,6 @@ public class Software_Project_Data {
     private String project_description;
     public ArrayList<Software_project_member> project_members;
 
-    public Software_Project_Data() {
-    }
-
     public Software_Project_Data(String project_name, String project_description, ArrayList<Software_project_member> project_members) {
         this.project_name = project_name;
         this.project_description = project_description;
@@ -32,7 +29,6 @@ public class Software_Project_Data {
     }
 
     //Needs Error handling
-    //
     public int find_member_index(Scanner input) {
         System.out.println("Enter the specified number to select a member: ");
         display_project_members();
@@ -76,14 +72,6 @@ public class Software_Project_Data {
 
     public Software_project_member get_member(int index) {
         return project_members.get(index);
-    }
-
-    public boolean valid_index(int index) {
-        return index > 0 && index <= (project_members.size() - 1);
-    }
-
-    public void setProject_members(ArrayList<Software_project_member> project_members) {
-        this.project_members = project_members;
     }
 
     public ArrayList<Software_project_member> getProject_members(){
