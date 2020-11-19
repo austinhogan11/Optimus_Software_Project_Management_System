@@ -5,9 +5,11 @@ import java.util.Scanner;
 
 public class Optimus_Software_UI {
     private final Scanner user_input = new Scanner(System.in);
+    private Optimus_File_Handling specFile;
 //    private final Optimus_Software_UI optimusUI = new Optimus_Software_UI();
 
-    public Optimus_Software_UI() {
+    public Optimus_Software_UI(Optimus_File_Handling specFile) {
+        this.specFile = specFile;
     }
 
     /*
