@@ -86,8 +86,8 @@ public class Optimus_Software_UI {
         String project_name = enter_new_project_name();
         String project_desc = new_project_description_input();
         ArrayList<Software_project_member> project_members = new_project_members_input();
-
-        return new Software_Project_Data(project_name, project_desc, project_members);
+        ArrayList<Software_Project_Workweek> project_workweeks = new_project_workweeks_input(project_members);
+        return new Software_Project_Data(project_name, project_desc, project_members, project_workweeks);
     }
 
     /*
@@ -132,6 +132,37 @@ public class Optimus_Software_UI {
         String last_name = new_member_last_name_input();
         boolean isManager = new_member_manager_input();
         return new Software_project_member(first_name, last_name, isManager);
+    }
+
+    private ArrayList<Software_Project_Workweek> new_project_workweeks_input(ArrayList<Software_project_member> members)
+    {
+        ArrayList<Software_Project_Workweek> new_project_workweeks = new ArrayList<>();
+        System.out.println("Do you want to add a workweek to the project? (y/n)");
+        String add_workweek = user_input.nextLine().toLowerCase();
+        while (add_workweek.equals("y")){
+            Software_Project_Workweek project_workweek = optimusUI_create_new_project_workweek(members);
+            new_project_workweeks.add(project_workweek);
+            System.out.println("Add another workweek to the project? (y/n)");
+            add_workweek = user_input.nextLine().toLowerCase();
+        }
+        return new_project_workweeks;
+    }
+
+    public Software_Project_Workweek optimusUI_create_new_project_workweek(ArrayList<Software_project_member> members) {
+        Software_Project_Workweek new_workweek = new Software_Project_Workweek(members);
+        for (int i = 0; i < members.size(); i++)
+        {
+            var firstName = members.get(i).getFirst_name();
+            var lastName = members.get(i).getLast_name();
+            var member_fullName = firstName + " " + lastName;
+
+            System.out.println("~   Enter the hours for " + member_fullName + ":                  ~");
+            float hours = Float.parseFloat(user_input.nextLine().toLowerCase());
+
+            var member = members.get(i);
+            new_workweek.AddHoursByMember(member, hours);
+        }
+        return new_workweek;
     }
 
     //  Retrieves the first name for a new project member.
@@ -188,7 +219,7 @@ public class Optimus_Software_UI {
                     System.out.println("Software Project Requirements");
                     break;
                 case "3":
-                    System.out.println("Software Project Monitoring");
+                    system_UI.project_effort_monitoring_processing(system_UI, current_project);
                     break;
                 case "e":
                     System.out.println("Exiting Project back to Optimus Main Menu.");
@@ -422,6 +453,40 @@ public class Optimus_Software_UI {
     public void optimusUI_choose_project_memberUI(Software_Project_Data project){
         System.out.println("~   Please enter the specified key for an option below: ~");
         project.display_project_members();
+    }
+
+    /*
+        ================================== "Current Project" Project Effort ==============================
+    */
+
+    public void optimusUI_project_effort_menu(){
+        System.out.println("~   Please enter the specified key for an option below: ~");
+        System.out.println("~   1. View Software Project Workweeks                  ~");
+        System.out.println("~   e. Back                                             ~");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
+
+    public void project_effort_monitoring_processing(Optimus_Software_UI systemUI, Software_Project_Data project) {
+        boolean inProjectEffort = true;
+        do {
+            systemUI.optimusUI_project_effort_menu();
+            String selection = user_input.nextLine().toLowerCase();
+            switch (selection) {
+                case "1":
+                    systemUI.view_project_effort_workweeks(project);
+                    break;
+                case "e":
+                    inProjectEffort = false;
+                    break;
+                default:
+                    System.out.println("Invalid Input. Try again please.");
+
+            }
+        } while (inProjectEffort);
+    }
+
+    public void view_project_effort_workweeks(Software_Project_Data project) {
+        project.display_project_workweeks();
     }
 
     /*

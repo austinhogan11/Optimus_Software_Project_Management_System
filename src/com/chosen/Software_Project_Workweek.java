@@ -9,6 +9,7 @@ import java.util.*;
 public class Software_Project_Workweek {
     Map<Software_project_member, Float> person_hours;
     List<Software_project_member> team_member_list;
+    private float total_hours_worked;
     public Software_Project_Workweek(List<Software_project_member> team_member_list)
     {
         this.team_member_list = team_member_list;
@@ -22,12 +23,19 @@ public class Software_Project_Workweek {
         {
             person_hours.put(team_member_list.get(i), 0f);
         }
+        total_hours_worked = 0f;
     }
 
     public void AddHoursByMember(Software_project_member member, float newHours)
     {
         var previousHours = person_hours.get(member);
         person_hours.put(member, previousHours + newHours);
+        total_hours_worked += newHours;
+    }
+
+    public float GetTotalHoursWorked()
+    {
+        return total_hours_worked;
     }
 
     public void print()

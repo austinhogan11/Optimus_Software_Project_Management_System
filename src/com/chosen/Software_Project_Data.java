@@ -7,11 +7,15 @@ public class Software_Project_Data {
     private String project_name;
     private String project_description;
     public ArrayList<Software_project_member> project_members;
+    private ArrayList<Software_Project_Workweek> project_workweeks;
 
-    public Software_Project_Data(String project_name, String project_description, ArrayList<Software_project_member> project_members) {
+    public Software_Project_Data(String project_name, String project_description,
+                                 ArrayList<Software_project_member> project_members,
+                                 ArrayList<Software_Project_Workweek> project_workweeks) {
         this.project_name = project_name;
         this.project_description = project_description;
         this.project_members = project_members;
+        this.project_workweeks = project_workweeks;
     }
 
     // Adds a new project member to the list of project_members for the current project.
@@ -67,6 +71,30 @@ public class Software_Project_Data {
                 member.display_member_data();
                 count++;
             }
+        }
+        else
+        {
+            System.out.println("No members to show. It's so lonely :(");
+        }
+    }
+
+    public void display_project_workweeks()
+    {
+        if (project_workweeks.size() > 0)
+        {
+            var overall_hours_worked = 0f;
+            for (int i = 0; i < project_workweeks.size(); i++)
+            {
+                var weekNum = i + 1;
+                System.out.println("Effort Data for Week " + weekNum + ":");
+                project_workweeks.get(i).print();
+                overall_hours_worked += project_workweeks.get(i).GetTotalHoursWorked();
+            }
+            System.out.println("Total Hours Overall: " + overall_hours_worked);
+        }
+        else
+        {
+            System.out.println("No workweeks to show :(");
         }
     }
 
