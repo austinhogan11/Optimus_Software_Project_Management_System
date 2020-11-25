@@ -3,8 +3,14 @@ package com.chosen;
 public class Main {
     public static void main(String[] args) {
 
+        String specFileDirectory;
+
         // Path for the specification directory -> pulls the current repository directory
-        String specFileDirectory = System.getProperty("user.dir") + "\\src\\com\\chosen";
+        if (System.getProperty("os.name").startsWith("Windows")) {
+            specFileDirectory = System.getProperty("user.dir") + "\\src\\com\\chosen";
+        } else {
+            specFileDirectory = System.getProperty("user.dir") + "/src/com/chosen";
+        }
 
         // Creates a new file handler instance -> opens the file for writing to throughout the whole program
         Optimus_File_Handling specFile = new Optimus_File_Handling(specFileDirectory);
