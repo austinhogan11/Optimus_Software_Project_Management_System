@@ -462,6 +462,7 @@ public class Optimus_Software_UI {
     public void optimusUI_project_effort_menu(){
         System.out.println("~   Please enter the specified key for an option below: ~");
         System.out.println("~   1. View Software Project Workweeks                  ~");
+        System.out.println("~   2. Edit Software Project Workweeks                  ~");
         System.out.println("~   e. Back                                             ~");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
@@ -475,6 +476,9 @@ public class Optimus_Software_UI {
                 case "1":
                     systemUI.view_project_effort_workweeks(project);
                     break;
+                case "2":
+                    systemUI.edit_project_effort_workweeks(systemUI, project);
+                    break;
                 case "e":
                     inProjectEffort = false;
                     break;
@@ -487,6 +491,94 @@ public class Optimus_Software_UI {
 
     public void view_project_effort_workweeks(Software_Project_Data project) {
         project.display_project_workweeks();
+    }
+
+    public void optimusUI_project_effort_edit_menu(Software_Project_Data project){
+        var numWorkweeks = project.get_workweek_count();
+        for (int i = 0; i < numWorkweeks; i++)
+        {
+            System.out.println((i+1) + ". Week " + (i+1));
+        }
+        System.out.println("e. Back");
+    }
+
+    public void workweek_member_mod_menu(Optimus_Software_UI systemUI, Software_Project_Data project, Software_Project_Workweek workweek)
+    {
+        while (true)
+        {
+            System.out.println("Select a member:");
+            workweek.print();
+            System.out.println("e: Back");
+            var selection = user_input.nextLine().toLowerCase();
+            var selection_index = -1;
+            var numeric = true;
+            try
+            {
+                selection_index = Integer.parseInt(selection) - 1;
+            }
+            catch (Exception e)
+            {
+                numeric = false;
+            }
+            if (selection.equalsIgnoreCase("e"))
+            {
+                break;
+            }
+            if (numeric && (selection_index < 0 || selection_index >= project.get_workweek_count()))
+            {
+                System.out.println("Invalid Input. Try again please.");
+                continue;
+            }
+            if (!numeric && !selection.equalsIgnoreCase("e"))
+            {
+                System.out.println("Invalid Input. Try again please.");
+                continue;
+            }
+
+            var firstName = project.get_member(selection_index).getFirst_name();
+            var lastName = project.get_member(selection_index).getLast_name();
+            var fullName = firstName + " " + lastName;
+
+            System.out.println("Enter new hours for " + fullName);
+            var input = Float.parseFloat(user_input.nextLine().toLowerCase());
+            Software_project_member member =  project.get_member(selection_index);
+            workweek.ChangeHoursByMember(member, input);
+        }
+    }
+
+    public void edit_project_effort_workweeks(Optimus_Software_UI systemUI, Software_Project_Data project) {
+        while (true)
+        {
+            System.out.println("Select a workweek:");
+            systemUI.optimusUI_project_effort_edit_menu(project);
+            var selection = user_input.nextLine().toLowerCase();
+            var selection_index = -1;
+            var numeric = true;
+            try
+            {
+                selection_index = Integer.parseInt(selection) - 1;
+            }
+            catch (Exception e)
+            {
+                numeric = false;
+            }
+            if (selection.equalsIgnoreCase("e"))
+            {
+                break;
+            }
+            if (numeric && (selection_index < 0 || selection_index >= project.get_workweek_count()))
+            {
+                System.out.println("Invalid Input. Try again please.");
+                continue;
+            }
+            if (!numeric && !selection.equalsIgnoreCase("e"))
+            {
+                System.out.println("Invalid Input. Try again please.");
+                continue;
+            }
+            System.out.println("Week " + (selection));
+            systemUI.workweek_member_mod_menu(systemUI, project, project.get_workweek(selection_index));
+        }
     }
 
     /*

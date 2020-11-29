@@ -7,8 +7,8 @@ import java.util.*;
  * and their hours for each week.
  * */
 public class Software_Project_Workweek {
-    Map<Software_project_member, Float> person_hours;
-    List<Software_project_member> team_member_list;
+    private Map<Software_project_member, Float> person_hours;
+    private List<Software_project_member> team_member_list;
     private float total_hours_worked;
     public Software_Project_Workweek(List<Software_project_member> team_member_list)
     {
@@ -33,6 +33,14 @@ public class Software_Project_Workweek {
         total_hours_worked += newHours;
     }
 
+    public void ChangeHoursByMember(Software_project_member member, float newHours)
+    {
+        var previousHours = person_hours.get(member);
+        total_hours_worked -= previousHours;
+        person_hours.put(member, newHours);
+        total_hours_worked += newHours;
+    }
+
     public float GetTotalHoursWorked()
     {
         return total_hours_worked;
@@ -41,12 +49,16 @@ public class Software_Project_Workweek {
     public void print()
     {
         float totalPersonHours = 0f;
-        for(Software_project_member person: person_hours.keySet())
+
+        for (int i = 0; i < team_member_list.size(); i++)
         {
-            System.out.println(person.getFirst_name() + " " + person.getLast_name() + ": "
-                    + person_hours.get(person) + " hours");
-            totalPersonHours += person_hours.get(person);
+            var firstName = team_member_list.get(i).getFirst_name();
+            var lastName = team_member_list.get(i).getLast_name();
+            var fullName = firstName + " " + lastName;
+            System.out.println(i+1 + ". " + fullName + ": "
+                    + person_hours.get(team_member_list.get(i)) + " hours");
+            totalPersonHours += person_hours.get(team_member_list.get(i));
         }
-        System.out.println("Total person hours this work week: " + totalPersonHours);
+        System.out.println("Total person hours this work week: " + totalPersonHours + "\n");
     }
 }
