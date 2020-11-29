@@ -98,6 +98,11 @@ public class Software_Project_Data {
         }
     }
 
+    public void Add_Workweek(Software_Project_Workweek newWorkweek)
+    {
+        project_workweeks.add(newWorkweek);
+    }
+
     public Software_Project_Workweek get_workweek(int index)
     {
         return project_workweeks.get(index);

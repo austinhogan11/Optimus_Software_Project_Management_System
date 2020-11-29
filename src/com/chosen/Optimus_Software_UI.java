@@ -461,8 +461,9 @@ public class Optimus_Software_UI {
 
     public void optimusUI_project_effort_menu(){
         System.out.println("~   Please enter the specified key for an option below: ~");
-        System.out.println("~   1. View Software Project Workweeks                  ~");
-        System.out.println("~   2. Edit Software Project Workweeks                  ~");
+        System.out.println("~   1. Add Software Project Workweeks                   ~");
+        System.out.println("~   2. View Software Project Workweeks                  ~");
+        System.out.println("~   3. Edit Software Project Workweeks                  ~");
         System.out.println("~   e. Back                                             ~");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
@@ -474,9 +475,12 @@ public class Optimus_Software_UI {
             String selection = user_input.nextLine().toLowerCase();
             switch (selection) {
                 case "1":
-                    systemUI.view_project_effort_workweeks(project);
+                    systemUI.add_project_effort_workweeks(systemUI, project);
                     break;
                 case "2":
+                    systemUI.view_project_effort_workweeks(project);
+                    break;
+                case "3":
                     systemUI.edit_project_effort_workweeks(systemUI, project);
                     break;
                 case "e":
@@ -487,6 +491,28 @@ public class Optimus_Software_UI {
 
             }
         } while (inProjectEffort);
+    }
+
+    public void optimusUI_project_effort_add_menu(Software_Project_Data project)
+    {
+        Software_Project_Workweek new_workweek = new Software_Project_Workweek(project.getProject_members());
+        for (int i = 0; i < project.get_members_list_size(); i++)
+        {
+            var member = project.getProject_members().get(i);
+            var firstName = member.getFirst_name();
+            var lastName = member.getLast_name();
+            var member_fullName = firstName + " " + lastName;
+
+            System.out.println("~   Enter the hours for " + member_fullName + ":                  ~");
+            float hours = Float.parseFloat(user_input.nextLine().toLowerCase());
+
+            new_workweek.AddHoursByMember(member, hours);
+        }
+        project.Add_Workweek(new_workweek);
+    }
+
+    public void add_project_effort_workweeks(Optimus_Software_UI systemUI, Software_Project_Data project) {
+        systemUI.optimusUI_project_effort_add_menu(project);
     }
 
     public void view_project_effort_workweeks(Software_Project_Data project) {
