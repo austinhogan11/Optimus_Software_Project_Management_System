@@ -90,12 +90,27 @@ public class Software_Project_Data {
                 project_workweeks.get(i).print();
                 overall_hours_worked += project_workweeks.get(i).GetTotalHoursWorked();
             }
-            System.out.println("Total Hours Overall: " + overall_hours_worked);
+            System.out.println("Total Hours Overall: " + overall_hours_worked + "\n");
         }
         else
         {
             System.out.println("No workweeks to show :(");
         }
+    }
+
+    public void Add_Workweek(Software_Project_Workweek newWorkweek)
+    {
+        project_workweeks.add(newWorkweek);
+    }
+
+    public Software_Project_Workweek get_workweek(int index)
+    {
+        return project_workweeks.get(index);
+    }
+
+    public int get_workweek_count()
+    {
+        return project_workweeks.size();
     }
 
     public Software_project_member get_member(int index) {
