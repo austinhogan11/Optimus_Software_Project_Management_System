@@ -55,8 +55,12 @@ public class Software_Project_Workweek {
             var firstName = team_member_list.get(i).getFirst_name();
             var lastName = team_member_list.get(i).getLast_name();
             var fullName = firstName + " " + lastName;
-            System.out.println(i+1 + ". " + fullName + ": "
-                    + person_hours.get(team_member_list.get(i)) + " hours");
+            var member_hours = person_hours.get(team_member_list.get(i));
+            if (member_hours == null)
+            {
+                continue;
+            }
+            System.out.println(i+1 + ". " + fullName + ": " + member_hours + " hours");
             totalPersonHours += person_hours.get(team_member_list.get(i));
         }
         System.out.println("Total person hours this work week: " + totalPersonHours + "\n");
