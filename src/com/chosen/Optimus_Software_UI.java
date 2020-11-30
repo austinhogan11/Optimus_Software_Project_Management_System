@@ -150,6 +150,10 @@ public class Optimus_Software_UI {
 
     public Software_Project_Workweek optimusUI_create_new_project_workweek(ArrayList<Software_project_member> members) {
         Software_Project_Workweek new_workweek = new Software_Project_Workweek(members);
+        System.out.println("~   Enter the state:                                    ~");
+        String state = user_input.nextLine().toLowerCase();
+        new_workweek.ChangeState(state);
+
         for (int i = 0; i < members.size(); i++)
         {
             var firstName = members.get(i).getFirst_name();
