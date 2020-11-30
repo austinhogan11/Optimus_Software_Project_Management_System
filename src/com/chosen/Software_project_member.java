@@ -42,10 +42,6 @@ public class Software_project_member {
         this.last_name = last_name;
     }
 
-    public boolean isManager() {
-        return isManager;
-    }
-
     public void setManager(boolean manager) {
         this.isManager = manager;
     }

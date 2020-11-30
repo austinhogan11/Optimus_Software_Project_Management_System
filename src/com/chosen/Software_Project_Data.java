@@ -17,16 +17,17 @@ public class Software_Project_Data {
         this.project_name = project_name;
         this.project_description = project_description;
         this.project_members = project_members;
+        this.project_workweeks = project_workweeks;
         this.project_functional_reqs = new ArrayList<>();
         this.project_nonfunctional_reqs = new ArrayList<>();
-        this.project_workweeks = project_workweeks;
 
     }
+
+    /* ---------------------------------- Project Member Handling----------------------------------- */
 
     // Adds a new project member to the list of project_members for the current project.
     public void add_project_member(Software_project_member new_member){
         project_members.add(new_member);
-
     }
 
     // Removes a project member at a specific index of project_members for the current project.
@@ -45,44 +46,6 @@ public class Software_Project_Data {
         return Integer.parseInt(num) - 1;
     }
 
-    /*
-        Software Project Getters & Setters
-     */
-    public String getProject_name() {
-        return project_name;
-    }
-
-    public void setProject_name(String project_name) {
-        this.project_name = project_name;
-    }
-
-    public String getProject_description() {
-        return project_description;
-    }
-
-    public void setProject_description(String project_description) {
-        this.project_description = project_description;
-    }
-
-    public int get_members_list_size(){
-       return project_members.size();
-    }
-
-    public int get_requirements_list_size(ArrayList<String> reqs){
-        return reqs.size();
-    }
-
-    public int find_requirement_index(Scanner input, ArrayList<String> reqs) {
-        System.out.println("Enter the specified number to select a member: ");
-        display_list_requirements(reqs);
-        return (Integer.parseInt(input.nextLine()) - 1);
-    }
-
-    public void remove_requirement(int index, ArrayList<String> reqs) {
-        System.out.println("Removed requirement.");
-        reqs.remove(index);
-    }
-
     public void display_project_members() {
         int count = 1;
         if (project_members.size() > 0) {
@@ -98,6 +61,26 @@ public class Software_Project_Data {
         }
     }
 
+    /* ---------------------------------- Project Requirements Handling----------------------------------- */
+
+    // Retrieves the size of either the functional or non-functional requirements lists
+    public int get_requirements_list_size(ArrayList<String> reqs){
+        return reqs.size();
+    }
+
+    // Retrieves the index for a specific requirement to be removed from either the functional or non-functional requirements
+    public int find_requirement_index(Scanner input, ArrayList<String> reqs) {
+        System.out.println("Enter the specified number to select a member: ");
+        display_list_requirements(reqs);
+        return (Integer.parseInt(input.nextLine()) - 1);
+    }
+
+    // Removes a requirement at a specified index of the functional or non-functional requirements list.
+    public void remove_requirement(int index, ArrayList<String> reqs) {
+        System.out.println("Removed requirement.");
+        reqs.remove(index);
+    }
+
     public void display_list_requirements(ArrayList<String> reqs){
         int count = 1;
         if (reqs.size() > 0) {
@@ -108,6 +91,8 @@ public class Software_Project_Data {
             System.out.println("The project has no requirements.");
         }
     }
+
+    /* ---------------------------------- Project Effort Monitoring Handling----------------------------------- */
 
     public void display_project_workweeks()
     {
@@ -144,14 +129,34 @@ public class Software_Project_Data {
         return project_workweeks.size();
     }
 
+    /*
+        Software Project Getters & Setters
+     */
+    public String getProject_name() {
+        return project_name;
+    }
+
+    public void setProject_name(String project_name) {
+        this.project_name = project_name;
+    }
+
+    public String getProject_description() {
+        return project_description;
+    }
+
+    public void setProject_description(String project_description) {
+        this.project_description = project_description;
+    }
+
+    public int get_members_list_size(){
+       return project_members.size();
+    }
+
     public Software_project_member get_member(int index) {
         return project_members.get(index);
     }
 
     public ArrayList<Software_project_member> getProject_members(){
         return project_members;
-    }
-    public Software_project_member getProject_member_at_id(int id){
-        return project_members.get(id);
     }
 }
