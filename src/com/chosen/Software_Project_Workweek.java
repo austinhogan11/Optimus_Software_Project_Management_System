@@ -57,6 +57,7 @@ public class Software_Project_Workweek {
     {
         float totalPersonHours = 0f;
 
+        System.out.println("State of Project: " + state);
         for (int i = 0; i < team_member_list.size(); i++)
         {
             var firstName = team_member_list.get(i).getFirst_name();
@@ -67,7 +68,6 @@ public class Software_Project_Workweek {
             {
                 continue;
             }
-            System.out.println("State of Project: " + state);
             System.out.println(i+1 + ". " + fullName + ": " + member_hours + " hours");
             totalPersonHours += person_hours.get(team_member_list.get(i));
         }
