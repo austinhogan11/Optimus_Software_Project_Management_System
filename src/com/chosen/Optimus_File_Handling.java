@@ -11,7 +11,9 @@ public class Optimus_File_Handling {
     public Optimus_File_Handling(String pathToFile) {
 
         // Get the path for the file
-        this.pathToFile = pathToFile + "\\specFile.txt";
+//        this.pathToFile = pathToFile + "\\specFile.txt";
+        this.pathToFile = pathToFile + "/specFile.txt";
+
 
         try {
             // Create the new file

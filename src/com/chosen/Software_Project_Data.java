@@ -7,6 +7,8 @@ public class Software_Project_Data {
     private String project_name;
     private String project_description;
     public ArrayList<Software_project_member> project_members;
+    public ArrayList<String> project_functional_reqs;
+    public ArrayList<String> project_nonfunctional_reqs;
     private ArrayList<Software_Project_Workweek> project_workweeks;
 
     public Software_Project_Data(String project_name, String project_description,
@@ -15,7 +17,10 @@ public class Software_Project_Data {
         this.project_name = project_name;
         this.project_description = project_description;
         this.project_members = project_members;
+        this.project_functional_reqs = new ArrayList<>();
+        this.project_nonfunctional_reqs = new ArrayList<>();
         this.project_workweeks = project_workweeks;
+
     }
 
     // Adds a new project member to the list of project_members for the current project.
@@ -63,6 +68,21 @@ public class Software_Project_Data {
        return project_members.size();
     }
 
+    public int get_requirements_list_size(ArrayList<String> reqs){
+        return reqs.size();
+    }
+
+    public int find_requirement_index(Scanner input, ArrayList<String> reqs) {
+        System.out.println("Enter the specified number to select a member: ");
+        display_list_requirements(reqs);
+        return (Integer.parseInt(input.nextLine()) - 1);
+    }
+
+    public void remove_requirement(int index, ArrayList<String> reqs) {
+        System.out.println("Removed requirement.");
+        reqs.remove(index);
+    }
+
     public void display_project_members() {
         int count = 1;
         if (project_members.size() > 0) {
@@ -75,6 +95,17 @@ public class Software_Project_Data {
         else
         {
             System.out.println("No members to show. It's so lonely :(");
+        }
+    }
+
+    public void display_list_requirements(ArrayList<String> reqs){
+        int count = 1;
+        if (reqs.size() > 0) {
+            for (String req : reqs) {
+                System.out.println(count++ + ". " + req);
+            }
+        } else {
+            System.out.println("The project has no requirements.");
         }
     }
 

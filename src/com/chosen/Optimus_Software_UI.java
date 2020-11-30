@@ -216,7 +216,7 @@ public class Optimus_Software_UI {
                     system_UI.project_information_processing(system_UI, current_project);
                     break;
                 case "2":
-                    System.out.println("Software Project Requirements");
+                    system_UI.project_requirements_processing(system_UI, current_project);
                     break;
                 case "3":
                     system_UI.project_effort_monitoring_processing(system_UI, current_project);
@@ -621,18 +621,130 @@ public class Optimus_Software_UI {
 
     public void optimusUI_functional_requirements_options(){
         System.out.println("~   Please enter the specified key for an option below: ~");
-        System.out.println("~   1. Add a Functional Requirement                     ~");
-        System.out.println("~   2. Remove a Functional Requirement                  ~");
+        System.out.println("~   1. View Functional Requirements                     ~");
+        System.out.println("~   2. Add a Functional Requirement                     ~");
+        System.out.println("~   3. Remove a Functional Requirement                  ~");
         System.out.println("~   e. Back                                             ~");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
-    public void optimusUI_nonfunctional_requirements_options(){
+    public void optimusUI_non_functional_requirements_options(){
         System.out.println("~   Please enter the specified key for an option below: ~");
-        System.out.println("~   1. Add a non-Functional Requirement                 ~");
-        System.out.println("~   2. Remove a Non-Functional Requirement              ~");
+        System.out.println("~   1. View Non-Functional Requirements                     ~");
+        System.out.println("~   2. Add a Non-Functional Requirement                     ~");
+        System.out.println("~   3. Remove a Non-Functional Requirement                  ~");
         System.out.println("~   e. Back                                             ~");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
+
+    public void project_requirements_processing(Optimus_Software_UI systemUI, Software_Project_Data project) {
+        boolean inProjectReqs = true;
+        do {
+            systemUI.optimusUI_project_requirements_options();
+            String selection = user_input.nextLine().toLowerCase();
+            switch (selection) {
+                case "1":
+                    functional_requirements_processing(systemUI, project);
+                    break;
+                case "2":
+                    non_functional_requirements_processing(systemUI, project);
+                    break;
+                case "e":
+                    inProjectReqs = false;
+                    break;
+                default:
+                    System.out.println("Invalid Input. Try again please.");
+            }
+        } while (inProjectReqs);
+    }
+
+    public void functional_requirements_processing(Optimus_Software_UI systemUI, Software_Project_Data project) {
+        boolean inFunctionalReqs = true;
+        do {
+            systemUI.optimusUI_functional_requirements_options();
+            String selection = user_input.nextLine().toLowerCase();
+            switch (selection) {
+                case "1":
+                    view_functional_reqs(project);
+                    break;
+                case "2":
+                    add_project_functional_requirement(project);
+                    break;
+                case "3":
+                    remove_project_functional_requirement(project);
+                    break;
+                case "e":
+                    inFunctionalReqs = false;
+                    break;
+                default:
+                    System.out.println("Invalid Input. Try again please.");
+            }
+        } while (inFunctionalReqs);
+    }
+
+    public void view_functional_reqs(Software_Project_Data project){
+        project.display_list_requirements(project.project_functional_reqs);
+    }
+
+    public void add_project_functional_requirement(Software_Project_Data project){
+        System.out.println("Enter the functional requirement: ");
+        String functional_req = user_input.nextLine();
+        project.project_functional_reqs.add(functional_req);
+    }
+
+    public  void remove_project_functional_requirement(Software_Project_Data project){
+        int list_size = project.get_requirements_list_size(project.project_functional_reqs);
+        if (list_size < 1){
+            System.out.println("There are no functional requirements to remove.");
+        } else {
+            int index = project.find_requirement_index(user_input, project.project_functional_reqs);
+            project.remove_requirement(index, project.project_functional_reqs);
+        }
+    }
+
+
+    public void non_functional_requirements_processing(Optimus_Software_UI systemUI, Software_Project_Data project) {
+        boolean inNonFunctionalReqs = true;
+        do {
+            systemUI.optimusUI_non_functional_requirements_options();
+            String selection = user_input.nextLine().toLowerCase();
+            switch (selection) {
+                case "1":
+                    view_non_functional_reqs(project);
+                    break;
+                case "2":
+                    add_project_non_functional_requirement(project);
+                    break;
+                case "3":
+                    remove_project_non_functional_requirement(project);
+                    break;
+                case "e":
+                    inNonFunctionalReqs = false;
+                    break;
+                default:
+                    System.out.println("Invalid Input. Try again please.");
+            }
+        } while (inNonFunctionalReqs);
+    }
+
+    public void view_non_functional_reqs(Software_Project_Data project){
+        project.display_list_requirements(project.project_nonfunctional_reqs);
+    }
+
+    public void add_project_non_functional_requirement(Software_Project_Data project){
+        System.out.println("Enter the non-functional requirement: ");
+        String non_functional_req = user_input.nextLine();
+        project.project_nonfunctional_reqs.add(non_functional_req);
+    }
+
+    public  void remove_project_non_functional_requirement(Software_Project_Data project){
+        int list_size = project.get_requirements_list_size(project.project_nonfunctional_reqs);
+        if (list_size < 1){
+            System.out.println("There are no non-functional requirements to remove.");
+        } else {
+            int index = project.find_requirement_index(user_input, project.project_nonfunctional_reqs);
+            project.remove_requirement(index, project.project_nonfunctional_reqs);
+        }
     }
 
 }
