@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class Optimus_Software_UI {
     private final Scanner user_input = new Scanner(System.in);
     private Optimus_File_Handling specFile;
-//    private final Optimus_Software_UI optimusUI = new Optimus_Software_UI();
 
     public Optimus_Software_UI(Optimus_File_Handling specFile) {
         this.specFile = specFile;
@@ -36,7 +35,7 @@ public class Optimus_Software_UI {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
-    public void optimusUI_main_menu_UI(Optimus_Software_UI systemUI){
+    public void optimusUI_main_menu_UI(){
         optimusUI_welcome_message();
         optimusUI_main_menu();
     }
@@ -47,18 +46,21 @@ public class Optimus_Software_UI {
         boolean appIsOpen = true;
         boolean atMainMenu = true;
 
+        Software_Project_Data currently_accessed_project = new Software_Project_Data();
+
         do {
-            systemUI.optimusUI_main_menu_UI(systemUI);
+            systemUI.optimusUI_main_menu_UI();
             String selection = user_input.nextLine();
             switch(selection) {
                 case "1":
                     Software_Project_Data new_software_project = systemUI.optimusUI_create_new_project();
                     systemUI.current_project_processing(systemUI, new_software_project);
+                    currently_accessed_project = new_software_project;
                     atMainMenu = true;
                     break;
                 case "2":
                     atMainMenu = false;
-                    System.out.println("To Do");
+                    current_project_processing(systemUI, currently_accessed_project);
                     break;
                 case "e":
                     appIsOpen = false;
@@ -154,16 +156,15 @@ public class Optimus_Software_UI {
         String state = user_input.nextLine().toLowerCase();
         new_workweek.ChangeState(state);
 
-        for (int i = 0; i < members.size(); i++)
-        {
-            var firstName = members.get(i).getFirst_name();
-            var lastName = members.get(i).getLast_name();
+        for (Software_project_member software_project_member : members) {
+            var firstName = software_project_member.getFirst_name();
+            var lastName = software_project_member.getLast_name();
             var member_fullName = firstName + " " + lastName;
 
             System.out.println("~   Enter the hours for " + member_fullName + ":                  ~");
             float hours = Float.parseFloat(user_input.nextLine().toLowerCase());
 
-            var member = members.get(i);
+            var member = software_project_member;
             new_workweek.AddHoursByMember(member, hours);
         }
         return new_workweek;
@@ -378,10 +379,12 @@ public class Optimus_Software_UI {
         } while (inMemberOptions);
     }
 
+    // Adds a project member to the current project.
     private void add_project_member(Software_Project_Data project) {
         project.add_project_member(optimusUI_create_new_project_member());
     }
 
+    // Removes a specified project member from a project.
     private void remove_project_member(Software_Project_Data project) {
         if(project.get_members_list_size() == 0) {
             System.out.println("The project currently has no members to remove.");
@@ -399,6 +402,7 @@ public class Optimus_Software_UI {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
+    // Project Member Modification Handling
     private void project_member_modification_processing(Software_Project_Data project) {
         boolean editingMember = true;
         if(project.get_members_list_size() == 0) {
@@ -453,11 +457,6 @@ public class Optimus_Software_UI {
         System.out.println("Member's project manager status was updated.");
     }
 
-
-    public void optimusUI_choose_project_memberUI(Software_Project_Data project){
-        System.out.println("~   Please enter the specified key for an option below: ~");
-        project.display_project_members();
-    }
 
     /*
         ================================== "Current Project" Project Effort ==============================
@@ -514,7 +513,7 @@ public class Optimus_Software_UI {
         System.out.println("e. Back");
     }
 
-    public void workweek_member_mod_menu(Optimus_Software_UI systemUI, Software_Project_Data project, Software_Project_Workweek workweek)
+    public void workweek_member_mod_menu(Software_Project_Data project, Software_Project_Workweek workweek)
     {
         while (true)
         {
@@ -589,7 +588,7 @@ public class Optimus_Software_UI {
                 continue;
             }
             System.out.println("Week " + (selection));
-            systemUI.workweek_member_mod_menu(systemUI, project, project.get_workweek(selection_index));
+            systemUI.workweek_member_mod_menu(project, project.get_workweek(selection_index));
         }
     }
 

@@ -11,6 +11,9 @@ public class Software_Project_Data {
     public ArrayList<String> project_nonfunctional_reqs;
     private ArrayList<Software_Project_Workweek> project_workweeks;
 
+    public Software_Project_Data() {
+    }
+
     public Software_Project_Data(String project_name, String project_description,
                                  ArrayList<Software_project_member> project_members,
                                  ArrayList<Software_Project_Workweek> project_workweeks) {
