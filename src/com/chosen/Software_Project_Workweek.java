@@ -10,6 +10,7 @@ public class Software_Project_Workweek {
     private Map<Software_project_member, Float> person_hours;
     private List<Software_project_member> team_member_list;
     private float total_hours_worked;
+    private String state;
     public Software_Project_Workweek(List<Software_project_member> team_member_list)
     {
         this.team_member_list = team_member_list;
@@ -19,11 +20,17 @@ public class Software_Project_Workweek {
 
     private void initSoftwareProjectSchedule()
     {
+        state = "default";
         for (int i = 0; i < team_member_list.size(); i++)
         {
             person_hours.put(team_member_list.get(i), 0f);
         }
         total_hours_worked = 0f;
+    }
+
+    public void ChangeState(String state)
+    {
+        this.state = state;
     }
 
     public void AddHoursByMember(Software_project_member member, float newHours)
@@ -60,6 +67,7 @@ public class Software_Project_Workweek {
             {
                 continue;
             }
+            System.out.println("State of Project: " + state);
             System.out.println(i+1 + ". " + fullName + ": " + member_hours + " hours");
             totalPersonHours += person_hours.get(team_member_list.get(i));
         }
