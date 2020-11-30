@@ -497,26 +497,8 @@ public class Optimus_Software_UI {
         } while (inProjectEffort);
     }
 
-    public void optimusUI_project_effort_add_menu(Software_Project_Data project)
-    {
-        Software_Project_Workweek new_workweek = new Software_Project_Workweek(project.getProject_members());
-        for (int i = 0; i < project.get_members_list_size(); i++)
-        {
-            var member = project.getProject_members().get(i);
-            var firstName = member.getFirst_name();
-            var lastName = member.getLast_name();
-            var member_fullName = firstName + " " + lastName;
-
-            System.out.println("~   Enter the hours for " + member_fullName + ":                  ~");
-            float hours = Float.parseFloat(user_input.nextLine().toLowerCase());
-
-            new_workweek.AddHoursByMember(member, hours);
-        }
-        project.Add_Workweek(new_workweek);
-    }
-
     public void add_project_effort_workweeks(Optimus_Software_UI systemUI, Software_Project_Data project) {
-        systemUI.optimusUI_project_effort_add_menu(project);
+        project.Add_Workweek(systemUI.optimusUI_create_new_project_workweek(project.getProject_members()));
     }
 
     public void view_project_effort_workweeks(Software_Project_Data project) {
