@@ -157,14 +157,14 @@ public class Optimus_Software_UI {
         new_workweek.ChangeState(state);
 
         for (Software_project_member software_project_member : members) {
-            var firstName = software_project_member.getFirst_name();
-            var lastName = software_project_member.getLast_name();
-            var member_fullName = firstName + " " + lastName;
+            String firstName = software_project_member.getFirst_name();
+            String lastName = software_project_member.getLast_name();
+            String member_fullName = firstName + " " + lastName;
 
             System.out.println("~   Enter the hours for " + member_fullName + ":                  ~");
             float hours = Float.parseFloat(user_input.nextLine().toLowerCase());
 
-            var member = software_project_member;
+            Software_project_member member = software_project_member;
             new_workweek.AddHoursByMember(member, hours);
         }
         return new_workweek;
@@ -505,7 +505,7 @@ public class Optimus_Software_UI {
     }
 
     public void optimusUI_project_effort_edit_menu(Software_Project_Data project){
-        var numWorkweeks = project.get_workweek_count();
+        int numWorkweeks = project.get_workweek_count();
         for (int i = 0; i < numWorkweeks; i++)
         {
             System.out.println((i+1) + ". Week " + (i+1));
@@ -520,9 +520,9 @@ public class Optimus_Software_UI {
             System.out.println("Select a member:");
             workweek.print();
             System.out.println("e: Back");
-            var selection = user_input.nextLine().toLowerCase();
-            var selection_index = -1;
-            var numeric = true;
+            String selection = user_input.nextLine().toLowerCase();
+            int selection_index = -1;
+            boolean numeric = true;
             try
             {
                 selection_index = Integer.parseInt(selection) - 1;
@@ -546,12 +546,12 @@ public class Optimus_Software_UI {
                 continue;
             }
 
-            var firstName = project.get_member(selection_index).getFirst_name();
-            var lastName = project.get_member(selection_index).getLast_name();
-            var fullName = firstName + " " + lastName;
+            String firstName = project.get_member(selection_index).getFirst_name();
+            String lastName = project.get_member(selection_index).getLast_name();
+            String fullName = firstName + " " + lastName;
 
             System.out.println("Enter new hours for " + fullName);
-            var input = Float.parseFloat(user_input.nextLine().toLowerCase());
+            Float input = Float.parseFloat(user_input.nextLine().toLowerCase());
             Software_project_member member =  project.get_member(selection_index);
             workweek.ChangeHoursByMember(member, input);
         }
@@ -562,9 +562,9 @@ public class Optimus_Software_UI {
         {
             System.out.println("Select a workweek:");
             systemUI.optimusUI_project_effort_edit_menu(project);
-            var selection = user_input.nextLine().toLowerCase();
-            var selection_index = -1;
-            var numeric = true;
+            String selection = user_input.nextLine().toLowerCase();
+            int selection_index = -1;
+            boolean numeric = true;
             try
             {
                 selection_index = Integer.parseInt(selection) - 1;

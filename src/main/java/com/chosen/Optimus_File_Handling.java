@@ -12,7 +12,7 @@ public class Optimus_File_Handling {
 
         // Get the path for the file
 //        this.pathToFile = pathToFile + "\\specFile.txt";
-        this.pathToFile = pathToFile + "/specFile.txt";
+        this.pathToFile = pathToFile + "\\specFile.txt";
 
 
         try {

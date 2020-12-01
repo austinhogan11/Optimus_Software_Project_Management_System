@@ -35,14 +35,14 @@ public class Software_Project_Workweek {
 
     public void AddHoursByMember(Software_project_member member, float newHours)
     {
-        var previousHours = person_hours.get(member);
+        float previousHours = person_hours.get(member);
         person_hours.put(member, previousHours + newHours);
         total_hours_worked += newHours;
     }
 
     public void ChangeHoursByMember(Software_project_member member, float newHours)
     {
-        var previousHours = person_hours.get(member);
+        float previousHours = person_hours.get(member);
         total_hours_worked -= previousHours;
         person_hours.put(member, newHours);
         total_hours_worked += newHours;
@@ -60,11 +60,11 @@ public class Software_Project_Workweek {
         System.out.println("State of Project: " + state);
         for (int i = 0; i < team_member_list.size(); i++)
         {
-            var firstName = team_member_list.get(i).getFirst_name();
-            var lastName = team_member_list.get(i).getLast_name();
-            var fullName = firstName + " " + lastName;
-            var member_hours = person_hours.get(team_member_list.get(i));
-            if (member_hours == null)
+            String firstName = team_member_list.get(i).getFirst_name();
+            String lastName = team_member_list.get(i).getLast_name();
+            String fullName = firstName + " " + lastName;
+            float member_hours = person_hours.get(team_member_list.get(i));
+            if (member_hours == 0f)
             {
                 continue;
             }
