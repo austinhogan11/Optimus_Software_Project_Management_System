@@ -101,10 +101,10 @@ public class Software_Project_Data {
     {
         if (project_workweeks.size() > 0)
         {
-            var overall_hours_worked = 0f;
+            float overall_hours_worked = 0f;
             for (int i = 0; i < project_workweeks.size(); i++)
             {
-                var weekNum = i + 1;
+                int weekNum = i + 1;
                 System.out.println("Effort Data for Week " + weekNum + ":");
                 project_workweeks.get(i).print();
                 overall_hours_worked += project_workweeks.get(i).GetTotalHoursWorked();

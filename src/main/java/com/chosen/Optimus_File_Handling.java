@@ -11,8 +11,8 @@ public class Optimus_File_Handling {
     public Optimus_File_Handling(String pathToFile) {
 
         // Get the path for the file
-//        this.pathToFile = pathToFile + "\\specFile.txt";
-        this.pathToFile = pathToFile + "/specFile.txt";
+//        this.pathToFile = pathToFile + "\\specFile.json";
+        this.pathToFile = pathToFile + "\\specFile.json";
 
 
         try {
@@ -28,7 +28,6 @@ public class Optimus_File_Handling {
     public void WriteToFile(String text) {
         try {
             this.specWriter.write(text + "\n");
-            CloseFile();
         } catch(IOException e) {
             System.out.println(e.getMessage());
         }
