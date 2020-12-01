@@ -14,7 +14,6 @@ public class Main {
 
         // Creates a new file handler instance -> opens the file for writing to throughout the whole program
         Optimus_File_Handling specFile = new Optimus_File_Handling(specFileDirectory);
-        specFile.WriteToFile("SPECIFICATIONS DOCUMENT\n----------------------\n");
 
         // Run the program -> pass the spec file in to start adding stuff to it
         // Call specFile.WriteToFile("put text in here");

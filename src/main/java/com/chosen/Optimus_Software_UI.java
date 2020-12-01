@@ -737,7 +737,7 @@ public class Optimus_Software_UI {
     {
         Gson gson = new Gson();
         String jsonInString = gson.toJson(project);
-        System.out.println(jsonInString);
+        specFile.WriteToFile(jsonInString);
     }
 
 }
