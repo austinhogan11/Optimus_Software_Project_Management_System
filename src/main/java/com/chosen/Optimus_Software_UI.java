@@ -1,5 +1,7 @@
 package com.chosen;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -63,6 +65,7 @@ public class Optimus_Software_UI {
                     current_project_processing(systemUI, currently_accessed_project);
                     break;
                 case "e":
+                    systemUI.serialize_objects(currently_accessed_project);
                     appIsOpen = false;
                     System.out.println("Goodbye");
                     break;
@@ -156,16 +159,15 @@ public class Optimus_Software_UI {
         String state = user_input.nextLine().toLowerCase();
         new_workweek.ChangeState(state);
 
-        for (Software_project_member software_project_member : members) {
-            String firstName = software_project_member.getFirst_name();
-            String lastName = software_project_member.getLast_name();
+        for (int i = 0; i < members.size(); i++) {
+            String firstName = members.get(i).getFirst_name();
+            String lastName = members.get(i).getLast_name();
             String member_fullName = firstName + " " + lastName;
 
             System.out.println("~   Enter the hours for " + member_fullName + ":                  ~");
             float hours = Float.parseFloat(user_input.nextLine().toLowerCase());
 
-            Software_project_member member = software_project_member;
-            new_workweek.AddHoursByMember(member, hours);
+            new_workweek.AddHoursByMember(i, hours);
         }
         return new_workweek;
     }
@@ -552,8 +554,7 @@ public class Optimus_Software_UI {
 
             System.out.println("Enter new hours for " + fullName);
             Float input = Float.parseFloat(user_input.nextLine().toLowerCase());
-            Software_project_member member =  project.get_member(selection_index);
-            workweek.ChangeHoursByMember(member, input);
+            workweek.ChangeHoursByMember(selection_index, input);
         }
     }
 
@@ -730,6 +731,13 @@ public class Optimus_Software_UI {
             int index = project.find_requirement_index(user_input, project.project_nonfunctional_reqs);
             project.remove_requirement(index, project.project_nonfunctional_reqs);
         }
+    }
+
+    public void serialize_objects(Software_Project_Data project)
+    {
+        Gson gson = new Gson();
+        String jsonInString = gson.toJson(project);
+        System.out.println(jsonInString);
     }
 
 }
