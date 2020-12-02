@@ -1,6 +1,8 @@
 package com.chosen;
 
 import com.google.gson.Gson;
+import java.io.Reader;
+import java.io.FileReader;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -62,7 +64,8 @@ public class Optimus_Software_UI {
                     break;
                 case "2":
                     atMainMenu = false;
-                    current_project_processing(systemUI, currently_accessed_project);
+                    Software_Project_Data project = deserialize_objects();
+                    current_project_processing(systemUI, project);
                     break;
                 case "e":
                     systemUI.serialize_objects(currently_accessed_project);
@@ -740,4 +743,11 @@ public class Optimus_Software_UI {
         specFile.WriteToFile(jsonInString);
     }
 
+    public Software_Project_Data deserialize_objects() {
+        Gson gson = new Gson();
+        Reader reader = specFile.ReadFromFile();
+        Software_Project_Data project = gson.fromJson(reader, Software_Project_Data.class);
+        project.toString();
+        return project;
+    }
 }

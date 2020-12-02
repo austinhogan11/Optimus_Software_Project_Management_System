@@ -7,9 +7,9 @@ public class Main {
 
         // Path for the specification directory -> pulls the current repository directory
         if (System.getProperty("os.name").startsWith("Windows")) {
-            specFileDirectory = System.getProperty("user.dir") + "\\src\\main\\java\\com\\chosen";
+            specFileDirectory = System.getProperty("user.dir") + "\\src\\main\\java\\com\\chosen\\";
         } else {
-            specFileDirectory = System.getProperty("user.dir") + "/src/main/java/com/chosen";
+            specFileDirectory = System.getProperty("user.dir") + "/src/main/java/com/chosen/";
         }
 
         // Creates a new file handler instance -> opens the file for writing to throughout the whole program
