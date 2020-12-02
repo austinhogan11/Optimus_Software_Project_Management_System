@@ -61,6 +61,7 @@ public class Optimus_Software_UI {
                     Software_Project_Data new_software_project = systemUI.optimusUI_create_new_project();
                     systemUI.current_project_processing(systemUI, new_software_project);
                     currently_accessed_project = new_software_project;
+                    systemUI.serialize_objects(currently_accessed_project);
                     atMainMenu = true;
                     break;
                 case "2":
