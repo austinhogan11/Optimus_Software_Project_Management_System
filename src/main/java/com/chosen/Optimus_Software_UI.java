@@ -1,8 +1,9 @@
 package com.chosen;
 
 import com.google.gson.Gson;
+
+import java.io.FileNotFoundException;
 import java.io.Reader;
-import java.io.FileReader;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -66,6 +67,7 @@ public class Optimus_Software_UI {
                     atMainMenu = false;
                     Software_Project_Data project = deserialize_objects();
                     current_project_processing(systemUI, project);
+                    systemUI.serialize_objects(project);
                     break;
                 case "e":
                     systemUI.serialize_objects(currently_accessed_project);
@@ -736,8 +738,7 @@ public class Optimus_Software_UI {
         }
     }
 
-    public void serialize_objects(Software_Project_Data project)
-    {
+    public void serialize_objects(Software_Project_Data project) {
         Gson gson = new Gson();
         String jsonInString = gson.toJson(project);
         specFile.WriteToFile(jsonInString);
