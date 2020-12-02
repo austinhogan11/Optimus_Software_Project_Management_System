@@ -2,6 +2,8 @@ package com.chosen;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Reader;
+import java.io.FileReader;
 
 public class Optimus_File_Handling {
 
@@ -10,9 +12,7 @@ public class Optimus_File_Handling {
 
     public Optimus_File_Handling(String pathToFile) {
 
-        // Get the path for the file
-//        this.pathToFile = pathToFile + "\\specFile.json";
-        this.pathToFile = pathToFile + "\\specFile.json";
+        this.pathToFile = pathToFile + "specFile.json";
 
 
         try {
@@ -39,5 +39,15 @@ public class Optimus_File_Handling {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public Reader ReadFromFile() {
+        Reader reader = null;
+        try {
+            reader = new FileReader(pathToFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return reader;
     }
 }
