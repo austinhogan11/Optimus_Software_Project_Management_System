@@ -65,10 +65,11 @@ public class Optimus_Software_UI {
                     atMainMenu = true;
                     break;
                 case "2":
-                    atMainMenu = false;
                     Software_Project_Data project = deserialize_objects();
                     current_project_processing(systemUI, project);
-                    systemUI.serialize_objects(project);
+                    currently_accessed_project = project;
+                    systemUI.serialize_objects(currently_accessed_project);
+                    atMainMenu = true;
                     break;
                 case "e":
                     systemUI.serialize_objects(currently_accessed_project);
